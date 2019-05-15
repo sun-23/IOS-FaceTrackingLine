@@ -45,21 +45,24 @@ extension ViewController: ARSCNViewDelegate {
         var device: MTLDevice!
         device = MTLCreateSystemDefaultDevice()
         
+        // create Geometry
         let faceGrometry = ARSCNFaceGeometry(device: device)
+        // create node
         let node = SCNNode(geometry: faceGrometry)
-        
-        node.geometry?.firstMaterial?.fillMode = .lines
-        node.geometry?.firstMaterial?.colorBufferWriteMask = SCNColorMask.blue
+        // กำหนดแบบ ว่าแบบ เส้น หรือ แบบ เต็ม
+        node.geometry?.firstMaterial?.fillMode = .lines // or .fill
+        node.geometry?.firstMaterial?.colorBufferWriteMask = SCNColorMask.green // color
         
         return node
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         
+        
         guard let faceAnchor = anchor as? ARFaceAnchor, let faceGeometry = node.geometry as? ARSCNFaceGeometry else {
             return
         }
-        // update face tracking
+        // update face tracking อัพเดต Geometry ของ faceAnchor  โดยเอาค่าใหม่จาก faceGeometry
         faceGeometry.update(from: faceAnchor.geometry)
     }
     
