@@ -51,7 +51,8 @@ extension ViewController: ARSCNViewDelegate {
         // create node
         let node = SCNNode(geometry: faceGrometry)
         // กำหนดแบบ ว่าแบบ เส้น หรือ แบบ เต็ม
-        node.geometry?.firstMaterial?.fillMode = .fill //.lines or .fill
+       // node.geometry?.firstMaterial?.fillMode = .lines //.lines or .fill
+       node.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "wireframeTexture.png") // lines rainbow
         node.geometry?.firstMaterial?.colorBufferWriteMask = SCNColorMask.red // color
         
         return node
